@@ -5,12 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+
+import androidx.compose.foundation.layout.*
+
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -41,66 +38,71 @@ fun ItemDogCard(dog: Dog, onItemClicked: (dog: Dog) -> Unit) {
         elevation = 0.dp,
         backgroundColor = MaterialTheme.colors.onSurface
     ) {
-        val image: Painter = painterResource(id = dog.image)
-        Image(
-            modifier = Modifier
-                .size(80.dp, 80.dp)
-                .clip(RoundedCornerShape(16.dp)),
-            painter = image,
-            alignment = Alignment.CenterStart,
-            contentDescription = "",
-            contentScale = ContentScale.Crop
-        )
-        Spacer(modifier = Modifier.size(16.dp))
-
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(80.dp),
+                .padding(16.dp)
         ) {
-            Text(
-                text = dog.name,
-                modifier = Modifier.padding(0.dp, 0.dp, 12.dp, 0.dp),
-                color = MaterialTheme.colors.surface,
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.subtitle1
+
+            val image: Painter = painterResource(id = dog.image)
+            Image(
+                modifier = Modifier
+                    .size(80.dp, 80.dp)
+                    .clip(RoundedCornerShape(16.dp)),
+                painter = image,
+                alignment = Alignment.CenterStart,
+                contentDescription = "",
+                contentScale = ContentScale.Crop
             )
-            Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = buildString {
-                    append(dog.age)
-                    append("yrs | ")
-                    append(dog.gender)
-                },
-                modifier = Modifier.padding(0.dp, 0.dp, 12.dp, 0.dp),
-                color = MaterialTheme.colors.surface,
-                style = MaterialTheme.typography.caption
-            )
-            Row(verticalAlignment = Alignment.Bottom) {
+            Spacer(modifier = Modifier.width(16.dp))
 
-                val location: Painter = painterResource(id = R.drawable.ic_location)
-
-                Icon(
-                    painter = location,
-                    contentDescription = null,
-                    modifier = Modifier.size(16.dp, 16.dp),
-                    tint = Color.Red
+            Column(modifier = Modifier.align(Alignment.CenterVertically)) {
+                Text(
+                    text = dog.name,
+                    modifier = Modifier.padding(0.dp, 0.dp, 12.dp, 0.dp),
+                    color = MaterialTheme.colors.surface,
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.subtitle1
                 )
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = dog.location,
-                    modifier = Modifier.padding(8.dp, 12.dp, 12.dp, 0.dp),
+                    text = buildString {
+                        append(dog.age)
+                        append("yrs | ")
+                        append(dog.gender)
+                    },
+                    modifier = Modifier.padding(0.dp, 0.dp, 12.dp, 0.dp),
                     color = MaterialTheme.colors.surface,
                     style = MaterialTheme.typography.caption
                 )
+
+                Row(verticalAlignment = Alignment.Bottom) {
+
+                    val location: Painter = painterResource(id = R.drawable.ic_location)
+
+                    Icon(
+                        painter = location,
+                        contentDescription = null,
+                        modifier = Modifier.size(16.dp, 16.dp),
+                        tint = Color.Red
+                    )
+
+                    Text(
+                        text = dog.location,
+                        modifier = Modifier.padding(8.dp, 12.dp, 12.dp, 0.dp),
+                        color = MaterialTheme.colors.surface,
+                        style = MaterialTheme.typography.caption
+                    )
+                }
             }
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
-        ) {
-            GenderTag(dog.gender)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                GenderTag(dog.gender)
+            }
         }
     }
 }
